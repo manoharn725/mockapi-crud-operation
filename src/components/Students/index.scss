@@ -1,0 +1,14 @@
+.students__list{ 
+    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.card{
+    background-color: rgb(213, 213, 213);
+    height: 200px;
+    padding: 10px;
+
+    & p{
+       
+    }
+}

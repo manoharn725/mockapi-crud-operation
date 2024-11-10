@@ -1,20 +1,48 @@
-.header__container{
+/* Header Container */
+.header__container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color:bisque;
+    padding: 1rem 2rem;
+    background-color: #343a40; /* Dark background */
+    color: #ffffff;
     height: 60px;
-    padding: 0 30px;
-    font-size: 20px;
-}
-.navbar__logo{
+  }
+  
+  /* Logo Styling */
+  .navbar__logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffffff;
     cursor: pointer;
-}
-.navbar__items{
-    display: flex;
-    gap: 15px;
-
-    & a {
-        text-decoration: none;
+    transition: color 0.3s ease;
+  
+    &:hover {
+      color: #28a745; /* Green color on hover */
     }
-}
+  }
+  
+  /* Navigation Links Container */
+  .navbar__items {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  /* Styling for Navigation Links */
+  .navbar__items a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  
+    &:hover {
+      color: #28a745; /* Green color on hover */
+    }
+  }
+  
+  /* Active Link Style */
+  .navbar__items a.active {
+    color: #ffc107; /* Gold color for active links */
+  }
+  

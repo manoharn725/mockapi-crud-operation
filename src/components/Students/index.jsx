@@ -1,18 +1,29 @@
 import { useNavigate } from "react-router-dom";
-import { useGetStudentsDataQuery } from "../../store/api/studentsApi";
+import {
+  useDeleteStudentMutation,
+  useGetStudentsDataQuery,
+} from "../../store/api/studentsApi";
 import "./index.scss";
 
 const Students = () => {
-  const { data } = useGetStudentsDataQuery();
+  const { data, isLoading } = useGetStudentsDataQuery();
+  const [deleteStudent] = useDeleteStudentMutation();
+
   const studentsList = data || [];
-  console.log(studentsList);
+
   const navigate = useNavigate();
-  const handleEdit = () => {
-    navigate('/create-form/id');
-  }
+
+  const handleEdit = (id) => {
+    navigate(`create-form/${id}`);
+  };
+  const handleDelete = (id) => {
+    deleteStudent(id);
+  };
   return (
     <div className="students__list">
-      {studentsList.length > 0 ? (
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : studentsList.length > 0 ? (
         studentsList.map((student) => (
           <div key={student.id} className="card">
             <p>Student Id:{student.id}</p>
@@ -21,11 +32,21 @@ const Students = () => {
             </p>
             <p>Email:{student.email}</p>
             <p>Phone Number:{student.phoneNumber}</p>
-            <button onClick={handleEdit}>edit</button>
+            <div className="buttons">
+              <button className="edit" onClick={() => handleEdit(student?.id)}>
+                edit
+              </button>
+              <button
+                className="delete"
+                onClick={() => handleDelete(student?.id)}
+              >
+                Delete
+              </button>
+            </div>
           </div>
         ))
       ) : (
-        <p>Loading..</p>
+        <p className="no-students">No students found.</p>
       )}
     </div>
   );

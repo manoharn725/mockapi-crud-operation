@@ -18,7 +18,7 @@ const Router = () => {
           element: <StudentForm />,
         },
         {
-            path: "/create-form/id",
+            path: "/create-form/:id",
             element: <StudentForm />,
           },
       ],

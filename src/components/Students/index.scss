@@ -1,10 +1,79 @@
-.students__list{ 
-    gap: 10px;
+/* Students List */
+.students__list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-.card{
-    background-color: rgb(213, 213, 213);
-    height: 200px;
-    padding: 10px;
-}
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  /* Card Style */
+  .card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: all 0.3s ease-in-out;
+  
+    /* Card Hover Effect */
+    &:hover {
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+  
+    /* Card Content */
+    p {
+      color: #333;
+      margin: 8px 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  
+    /* Button Container */
+    .buttons {
+      display: flex;
+      justify-content: start;
+      gap: 15px;
+    }
+  
+    /* Button Styling */
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+  
+      &.edit {
+        background-color: #4caf50;
+        color: white;
+  
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+  
+      &.delete {
+        background-color: #f44336;
+        color: white;
+  
+        &:hover {
+          background-color: #e53935;
+        }
+      }
+    }
+  }
+  
+  /* Loading State Styling */
+  .students__list p {
+    font-size: 1rem;
+    color: #777;
+  }
+  
+  /* No Students Found */
+  .students__list .no-students {
+    font-size: 1.1rem;
+    color: #aaa;
+    text-align: center;
+  }
+  

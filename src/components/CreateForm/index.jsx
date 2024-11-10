@@ -1,16 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.scss";
-import { useAddStudentMutation } from "../../store/api/studentsApi";
-import { useNavigate } from "react-router-dom";
+import {
+  useAddStudentMutation,
+  useGetStudentByIdQuery,
+  useUpdateStudentMutation,
+} from "../../store/api/studentsApi";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CreateForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [editMode, setEditMode] = useState(false);
 
-  const [addStudent]  = useAddStudentMutation();
-   const navigate = useNavigate();
+  const { id } = useParams();
+  const [addStudent] = useAddStudentMutation();
+  const { data: studentById } = useGetStudentByIdQuery(id, { skip: !id });
+  const [updateStudent] = useUpdateStudentMutation();
+
+  useEffect(() => {
+    if (studentById) {
+      setEditMode(true);
+      setFirstName(studentById.firstName || "");
+      setLastName(studentById.lastName || "");
+      setEmail(studentById.email || "");
+      setPhoneNumber(studentById.phoneNumber || "");
+    }
+  }, [studentById]);
+
+  const navigate = useNavigate();
 
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
@@ -23,14 +42,18 @@ const CreateForm = () => {
     setEmail(e.target.value);
   };
   const handlePhoneNumber = (e) => {
-    setPhoneNumber(e.target.value);
-    
+    setPhoneNumber(Number(e.target.value)); //you can use + symbol instead of Number
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addStudent({firstName, lastName, email, phoneNumber})
-    navigate('/')
+    if (editMode) {
+      await updateStudent({ id, firstName, lastName, email, phoneNumber });
+    } else {
+      await addStudent({ firstName, lastName, email, phoneNumber });
+    }
+    setEditMode(false);
+    navigate("/");
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -67,7 +90,7 @@ const CreateForm = () => {
       <div className="form__row">
         <label htmlFor="phoneNumber">Phone Number</label>
         <input
-          type="number"
+          type="text"
           name="phoneNumber"
           value={phoneNumber}
           onChange={handlePhoneNumber}
@@ -75,7 +98,7 @@ const CreateForm = () => {
         />
       </div>
       <div className="form__row">
-        <input type="submit" value="Submit" onSubmit={handleSubmit} />
+        <button type="submit" value="Submit" onSubmit={handleSubmit} >Submit</button>
       </div>
     </form>
   );

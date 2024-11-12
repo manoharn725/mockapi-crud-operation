@@ -19,10 +19,10 @@ export const studentsApi = createApi({
       }),
     }),
     addStudent: builder.mutation({
-      query: ({ firstName, lastName, email, phoneNumber }) => ({
+      query: (studentData) => ({
         url: "/students",
         method: "POST",
-        body: { firstName, lastName, email, phoneNumber },
+        body: studentData,
       }),
       invalidatesTags: ["GetStudentsData"],
     }),

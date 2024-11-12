@@ -5,7 +5,7 @@ export const studentsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://672850bb270bd0b97554faa1.mockapi.io",
   }),
-  tagTypes: ["GetStudentsData"],
+  tagTypes: ["GetStudentsData", "GetStudentById"],
   endpoints: (builder) => ({
     getStudentsData: builder.query({
       query: () => "/students",
@@ -15,7 +15,7 @@ export const studentsApi = createApi({
       query: (id) => ({
         url: `/students/${id}`,
         method: "GET",
-        providesTags: ["GetStudentsData"],
+        providesTags: ["GetStudentById"],
       }),
     }),
     addStudent: builder.mutation({
@@ -40,7 +40,7 @@ export const studentsApi = createApi({
         method: "PUT",
         body: rest,
       }),
-      invalidatesTags: ["GetStudentsData"],
+      invalidatesTags: ["GetStudentsData", "GetStudentById"],
     }),
   }),
 });

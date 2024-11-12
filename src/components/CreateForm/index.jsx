@@ -7,12 +7,12 @@ import {
 } from "../../store/api/studentsApi";
 import { useNavigate, useParams } from "react-router-dom";
 
-const CreateForm = () => {
+const CreateForm = ({editMode, setEditMode}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [editMode, setEditMode] = useState(false);
+
 
   const { id } = useParams();
   const [addStudent] = useAddStudentMutation();
@@ -98,7 +98,7 @@ const CreateForm = () => {
         />
       </div>
       <div className="form__row">
-        <button type="submit" value="Submit" onSubmit={handleSubmit} >Submit</button>
+        <button type="submit" value="Submit" onSubmit={handleSubmit} >{editMode? 'Update': 'Submit'}</button>
       </div>
     </form>
   );

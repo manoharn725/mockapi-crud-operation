@@ -5,6 +5,7 @@ import {
 } from "../../store/api/studentsApi";
 import "./index.scss";
 
+
 const Students = () => {
   const { data, isLoading } = useGetStudentsDataQuery();
   const [deleteStudent] = useDeleteStudentMutation();

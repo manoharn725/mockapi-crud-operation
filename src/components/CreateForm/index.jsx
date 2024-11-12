@@ -6,7 +6,7 @@ import {
   useUpdateStudentMutation,
 } from "../../store/api/studentsApi";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEditModeContext } from "../../context/editModeContext";
+import { useEditModeContext } from "../../context/EditMode/useEditModeContext";
 
 const CreateForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -28,7 +28,7 @@ const CreateForm = () => {
       setEmail(studentById.email || "");
       setPhoneNumber(studentById.phoneNumber || "");
     }
-  }, [studentById]);
+  }, [studentById, handleEditMode]);
 
   const navigate = useNavigate();
 

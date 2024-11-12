@@ -1,5 +1,5 @@
 import CreateForm from "../../components/CreateForm";
-import { useEditModeContext } from "../../context/editModeContext";
+import { useEditModeContext } from "../../context/EditMode/useEditModeContext";
 import "./index.scss";
 
 const StudentForm = () => {

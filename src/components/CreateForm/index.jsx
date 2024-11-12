@@ -6,13 +6,14 @@ import {
   useUpdateStudentMutation,
 } from "../../store/api/studentsApi";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEditModeContext } from "../../context/editModeContext";
 
-const CreateForm = ({editMode, setEditMode}) => {
+const CreateForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
+  const { isEditMode, handleEditMode } = useEditModeContext();
 
   const { id } = useParams();
   const [addStudent] = useAddStudentMutation();
@@ -21,7 +22,7 @@ const CreateForm = ({editMode, setEditMode}) => {
 
   useEffect(() => {
     if (studentById) {
-      setEditMode(true);
+      handleEditMode(true);
       setFirstName(studentById.firstName || "");
       setLastName(studentById.lastName || "");
       setEmail(studentById.email || "");
@@ -47,14 +48,16 @@ const CreateForm = ({editMode, setEditMode}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editMode) {
-      await updateStudent({ id, firstName, lastName, email, phoneNumber });
+    const studentData = { firstName, lastName, email, phoneNumber };
+    if (isEditMode) {
+      await updateStudent({ id, ...studentData });
     } else {
-      await addStudent({ firstName, lastName, email, phoneNumber });
+      await addStudent(studentData);
     }
-    setEditMode(false);
+    handleEditMode(false);
     navigate("/");
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="form__row">
@@ -98,7 +101,9 @@ const CreateForm = ({editMode, setEditMode}) => {
         />
       </div>
       <div className="form__row">
-        <button type="submit" value="Submit" onSubmit={handleSubmit} >{editMode? 'Update': 'Submit'}</button>
+        <button type="submit" value="Submit" onSubmit={handleSubmit}>
+          {isEditMode ? "Update" : "Submit"}
+        </button>
       </div>
     </form>
   );

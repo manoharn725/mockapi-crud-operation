@@ -26,6 +26,10 @@
   .navbar__items {
     display: flex;
     gap: 1.5rem;
+
+    & a{
+      cursor: pointer;
+    }
   }
   
   /* Styling for Navigation Links */

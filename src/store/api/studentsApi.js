@@ -35,10 +35,10 @@ export const studentsApi = createApi({
       invalidatesTags: ["GetStudentsData"],
     }),
     updateStudent: builder.mutation({
-      query: ({ id, ...rest }) => ({
+      query: ({ id, ...studentData }) => ({
         url: `/students/${id}`,
         method: "PUT",
-        body: rest,
+        body: studentData,
       }),
       invalidatesTags: ["GetStudentsData", "GetStudentById"],
     }),

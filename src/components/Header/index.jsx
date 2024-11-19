@@ -7,11 +7,12 @@ const Header = () => {
   const { isEditMode, handleEditMode } = useEditModeContext();
   const goToHome = () => {
     navigate("/");
+    handleEditMode(false)
   };
 
   const goToCreateForm = () => {
     {
-      isEditMode ? "" : navigate("/create-form"), handleEditMode(false);
+      isEditMode ? alert(`You are in editMode you can't reach add student form`) : navigate("/create-form"), handleEditMode(false);
     }
   };
   return (
@@ -20,8 +21,8 @@ const Header = () => {
         Logo
       </div>
       <div className="navbar__items">
-        <Link to={"/"}>Students</Link>
-        <a to={"/create-form"} title={isEditMode? 'You are in editMode' : ''} onClick={goToCreateForm}>
+        <Link to={"/"} onClick={goToHome}>Students</Link>
+        <a to={"/create-form"}  onClick={goToCreateForm}>
           Form
         </a>
       </div>

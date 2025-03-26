@@ -8,13 +8,15 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { useEditModeContext } from "../../context/EditMode/useEditModeContext";
 
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phoneNumber: "",
+}
+
 const CreateForm = () => {
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-  });
+  const [user, setUser] = useState(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { isEditMode, handleEditMode } = useEditModeContext();
 

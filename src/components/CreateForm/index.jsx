@@ -32,6 +32,8 @@ const CreateForm = () => {
       name: "firstName",
       placeholder: "First Name",
       isRequired: true,
+      minLength:1,
+      maxLength:50,
     },
     {
       label: "Last Name",
@@ -39,6 +41,8 @@ const CreateForm = () => {
       name: "lastName",
       placeholder: "Last Name",
       isRequired: true,
+      minLength:1,
+      maxLength:50,
     },
     {
       label: "Email Address",
@@ -46,13 +50,17 @@ const CreateForm = () => {
       name: "email",
       placeholder: "Email",
       isRequired: true,
+      minLength:5,
+      maxLength:100,
     },
     {
       label: "Phone Number",
-      type: "number",
+      type: "tel",
       name: "phoneNumber",
       placeholder: "Phone Number",
       isRequired: true,
+      minLength:10,
+      maxLength:10,
     },
   ];
 
@@ -89,11 +97,12 @@ const CreateForm = () => {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
       {fieldType.map(
-        ({ label, type, name, placeholder, isRequired }, index) => (
+        ({ label, type, name, placeholder, isRequired, minLength, maxLength }, index) => (
           <div key={index} className="form__row">
             <label htmlFor={name}>{label}</label>
             <input
@@ -103,6 +112,8 @@ const CreateForm = () => {
               onChange={handleChange}
               placeholder={placeholder}
               required={isRequired}
+              minLength={minLength}
+              maxLength={maxLength} 
             />
           </div>
         )
